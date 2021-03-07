@@ -41,9 +41,6 @@ def output_bin(in_name, h, c):
     symbol_name = re.sub(r"\W", "_", basename)
     i = open(in_name, "rb")
 
-    h.write("extern const unsigned char {}[];\n".format(symbol_name))
-    h.write("extern const size_t {}_length;\n".format(symbol_name))
-
     c.write("const unsigned char {}[] = {{\n".format(symbol_name))
     while True:
         block = i.read(16)
@@ -68,19 +65,11 @@ def output_bin(in_name, h, c):
 
 
 def output_set(out_name, in_names):
-    h = open(out_name + ".h", "w")
-    hname = re.sub(r"\W", "_", out_name).upper()
-    h.write("#ifndef _{0}_H\n#define _{0}_H\n".format(hname))
-    h.write(header)
-
-    c = open(out_name + ".c", "w")
+    c = open(out_name, "w")
     c.write(header)
 
     for in_name in in_names:
         output_bin(in_name, h, c)
-
-    h.write("\n#endif\n")
-    h.close()
     c.close()
 
 
