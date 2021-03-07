@@ -61,7 +61,7 @@ def output_bin(in_name, c):
                 .format(*struct.unpack("BBBBBBBBBBBBBBBB", block)))
     i.close()
     c.write("};\n")
-    c.write("const size_t {0}_size = sizeof({0});\n".format(symbol_name))
+    c.write("const size_t {0}_length = sizeof({0});\n".format(symbol_name))
 
 
 def output_set(out_name, in_names):
