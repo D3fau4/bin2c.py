@@ -67,7 +67,7 @@ def output_bin(in_name, c):
 def output_set(out_name, in_names):
     hname = re.sub(r"\W", "_", out_name).upper()
 
-    c = open(out_name + ".c", "w")
+    c = open(out_name, "w")
     c.write(header)
 
     for in_name in in_names:
