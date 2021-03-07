@@ -41,10 +41,10 @@ def output_bin(in_name, h, c):
     symbol_name = re.sub(r"\W", "_", basename)
     i = open(in_name, "rb")
 
-    h.write("extern const unsigned char {}_start[];\n".format(symbol_name))
-    h.write("extern const size_t {}_size;\n".format(symbol_name))
+    h.write("extern const unsigned char {}[];\n".format(symbol_name))
+    h.write("extern const size_t {}_length;\n".format(symbol_name))
 
-    c.write("const unsigned char {}_start[] = {{\n".format(symbol_name))
+    c.write("const unsigned char {}[] = {{\n".format(symbol_name))
     while True:
         block = i.read(16)
         if len(block) < 16:
@@ -64,7 +64,7 @@ def output_bin(in_name, h, c):
                 .format(*struct.unpack("BBBBBBBBBBBBBBBB", block)))
     i.close()
     c.write("};\n")
-    c.write("const size_t {0}_size = sizeof({0}_start);\n".format(symbol_name))
+    c.write("const size_t {0}_size = sizeof({0});\n".format(symbol_name))
 
 
 def output_set(out_name, in_names):
